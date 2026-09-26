@@ -1,0 +1,14 @@
+from pathlib import Path
+
+LOG = Path(__file__).parents[1] / "datasets" / "auth.log"
+
+def parse_line(line: str) -> dict:
+    # TODO: timestamp ve key=value alanlarını sözlüğe dönüştürün.
+    raise NotImplementedError
+
+def main():
+    # TODO: toplam SUCCESS/FAILED sayılarını ve en çok hata üreten IP'yi yazdırın.
+    pass
+
+if __name__ == "__main__":
+    main()
