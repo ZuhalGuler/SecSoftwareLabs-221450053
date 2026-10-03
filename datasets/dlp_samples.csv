@@ -1,0 +1,6 @@
+id,text,expected
+1,"Merhaba, toplantı notları ektedir.",ALLOW
+2,İletişim için test.user@example.com adresini kullanabilirsiniz.,REVIEW
+3,Müşteri telefonu: 0532 555 44 33,REVIEW
+4,Test TCKN: 10000000146,BLOCK
+5,Bu doküman genel kullanıma açıktır.,ALLOW
