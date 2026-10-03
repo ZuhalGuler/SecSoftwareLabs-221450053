@@ -1,7 +1,7 @@
-# HW 2 – JSON, Regex, CSV ve Veri Doğrulama (Python)
+# HomeWork 2 – JSON, Regex, CSV ve Veri Doğrulama 
 
 ## 1. Ödevin Amacı
-Bu ödevin amacı; JSONL (JSON Lines) formatındaki log kayıtlarını satır satır okumak, hatalı/bozuk satırlara karşı dayanıklı hata yönetimi (`try/except`) geliştirmek, Düzenli İfadeler (Regex) ile IPv4 adres geçerliliğini doğrulamak ve filtrelenen başarısız olayları CSV formatında dışa aktarmaktır.
+Bu ödevin amacı; JSONL (JSON Lines) formatındaki log kayıtlarını satır satır okumak, hatalı/bozuk satırlara karşı dayanıklı hata yönetimi geliştirmek, Düzenli İfadeler  ile IPv4 adres geçerliliğini doğrulamak ve filtrelenen başarısız olayları CSV formatında dışa aktarmaktır.
 
 ## 2. Kullanılan Veri Seti
 - **Dosya Yolu:** `datasets/events.jsonl`
