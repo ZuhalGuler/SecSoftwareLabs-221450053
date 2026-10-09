@@ -6,7 +6,7 @@ import sys
 import urllib.error
 import urllib.request
 
-# Varsayılan sunucu adresi ve varsayılan endpoint
+# sunucu adresi ve  endpoint
 DEFAULT_BASE_URL = "http://localhost:8000"
 DEFAULT_ENDPOINT = "/api/events"
 
@@ -16,7 +16,7 @@ def fetch_and_process_events(endpoint_or_url=DEFAULT_ENDPOINT):
     Sunucudan güvenlik olaylarını çeker, analiz eder, high severity olanları
     CSV dosyasına kaydeder ve sonuçları terminale yazdırır.
     """
-    # URL oluşturma: Parametre doğrudan tam URL değilse base_url ile birleştir
+    # URL oluşturma
     if endpoint_or_url.startswith("http://") or endpoint_or_url.startswith("https://"):
         target_url = endpoint_or_url
     else:
@@ -25,13 +25,13 @@ def fetch_and_process_events(endpoint_or_url=DEFAULT_ENDPOINT):
         target_url = f"{DEFAULT_BASE_URL}{path}"
 
     try:
-        # 1. HTTP GET İsteği: timeout=5 ile sunucu yanıt vermezse kilitlenmeyi önler
+        # 1. HTTP GET İsteği
         req = urllib.request.Request(target_url, headers={"User-Agent": "SecurityEventClient/1.0"})
         with urllib.request.urlopen(req, timeout=5) as response:
             status_code = response.getcode()
             response_body = response.read().decode("utf-8")
 
-        # 2. JSON Ayrıştırma: Metin tabanlı JSON verisini Python listesine/sözlüğüne çevirir
+        # 2. Metin tabanlı JSON verisini Python listesine/sözlüğüne çevirir
         try:
             data = json.loads(response_body)
         except json.JSONDecodeError:
@@ -60,7 +60,7 @@ def fetch_and_process_events(endpoint_or_url=DEFAULT_ENDPOINT):
                 print(f"ID: {event.get('id')}")
                 print(f"Type: {event.get('type')}")
 
-            # 3. CSV Kaydı: high_events.csv dosyasını client.py'nin bulunduğu klasöre kaydet
+            # 3. CSV Kaydı
             script_dir = os.path.dirname(os.path.abspath(__file__))
             csv_path = os.path.join(script_dir, "high_events.csv")
 
@@ -75,7 +75,7 @@ def fetch_and_process_events(endpoint_or_url=DEFAULT_ENDPOINT):
                         "type": event.get("type")
                     })
         elif isinstance(data, dict):
-            # Sözlük tipinde bir yanıt geldiyse (örn: /api/summary veya hata mesajı)
+            # Sözlük tipinde bir yanıt geldiyse 
             print("Alınan Yanıt:")
             print(json.dumps(data, indent=2, ensure_ascii=False))
 
@@ -92,7 +92,6 @@ def fetch_and_process_events(endpoint_or_url=DEFAULT_ENDPOINT):
 
 
 if __name__ == "__main__":
-    # Komut satırı argümanı kontrolü (varsayılan: /api/events)
-    # Örnek kullanım: python client.py /api/abc
+    # Komut satırı argümanı kontrolü 
     endpoint = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_ENDPOINT
     fetch_and_process_events(endpoint)
