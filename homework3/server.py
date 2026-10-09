@@ -6,8 +6,8 @@ import sys
 HOST = "localhost"
 PORT = 8000
 
-# Ödev gereksinimi: En az 8 güvenlik olayı (id, severity, type alanları)
-# low, medium ve high severity seviyeleri dengeli olarak tanımlanmıştır.
+# Ödev gereksinimi: En az 8 güvenlik olayı 
+# low, medium ve high severity tanımlı
 SECURITY_EVENTS = [
     {"id": 1, "severity": "low", "type": "failed-login"},
     {"id": 2, "severity": "high", "type": "bruteforce"},
@@ -42,21 +42,21 @@ class SecurityEventHandler(http.server.BaseHTTPRequestHandler):
         """
         Gelen HTTP GET isteklerini yönetir ve ilgili endpoint'e yönlendirir.
         """
-        # URL yolunu normalize et (varsa sondaki gereksiz slash'ları temizle)
-        path = self.path.split("?")[0]  # Query parametrelerini ayır
+        # URL yolunu normalize et 
+        path = self.path.split("?")[0] 
         if path != "/" and path.endswith("/"):
             path = path[:-1]
 
-        # 1. Endpoint: GET /api/events -> Tüm olaylar
+        # 1. Endpoint: GET /api/events  Tüm olaylar
         if path == "/api/events":
             self._send_json_response(200, SECURITY_EVENTS)
 
-        # 2. Endpoint: GET /api/events/high -> Sadece severity == 'high' olanlar
+        # 2. Endpoint: GET /api/events/high  Sadece severity == 'high' olanlar
         elif path == "/api/events/high":
             high_events = [e for e in SECURITY_EVENTS if e.get("severity") == "high"]
             self._send_json_response(200, high_events)
 
-        # 3. Endpoint: GET /api/summary -> Olayların dinamik istatistiksel özeti
+        # 3. Endpoint: GET /api/summary  Olayların dinamik istatistiksel özeti
         elif path == "/api/summary":
             # Değerler listeden dinamik olarak hesaplanır
             total = len(SECURITY_EVENTS)
