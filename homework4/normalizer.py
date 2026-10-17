@@ -1,4 +1,4 @@
-# normalizer.py - HTTP Request URL Normalizer
+
 
 import urllib.parse
 
