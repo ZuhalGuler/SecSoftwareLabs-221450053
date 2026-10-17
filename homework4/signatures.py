@@ -17,3 +17,12 @@ XSS_PATTERNS = [
     "<img",          # Eklenen özel imza 2: Zararlı görsel etiketi enjeksiyonu
     "onload=",       # Eklenen özel imza 3: Yükleme olayı tabanlı XSS
 ]
+
+# Path Traversal saldırı imzaları (normalize edilmiş küçük harf formatında)
+TRAVERSAL_PATTERNS = [
+    "../",
+    "..\\",
+    "/etc/passwd",   # Eklenen özel imza 1: Linux sistem kullanıcı dosyası erişimi
+    "%2e%2e",        # Eklenen özel imza 2: Encode edilmiş üst dizin geçişi
+    "..%2f",         # Eklenen özel imza 3: Kısmi encode edilmiş dizin geçişi
+]

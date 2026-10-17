@@ -1,6 +1,6 @@
 # detector.py - Attack Detection Engine
 
-from signatures import SQLI_PATTERNS, XSS_PATTERNS
+from signatures import SQLI_PATTERNS, XSS_PATTERNS, TRAVERSAL_PATTERNS
 
 
 def detect_sqli(normalized_url):
@@ -18,6 +18,16 @@ def detect_xss(normalized_url):
     if not normalized_url or not isinstance(normalized_url, str):
         return False
     for pattern in XSS_PATTERNS:
+        if pattern in normalized_url:
+            return True
+    return False
+
+
+def detect_traversal(normalized_url):
+    """Normalize edilmiş URL içinde Path Traversal imzalarını arar."""
+    if not normalized_url or not isinstance(normalized_url, str):
+        return False
+    for pattern in TRAVERSAL_PATTERNS:
         if pattern in normalized_url:
             return True
     return False
