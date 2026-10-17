@@ -1,0 +1,13 @@
+src_ip,method,url,attack,severity,action
+10.10.1.20,GET,/products?id=1' OR 1=1--,SQL_INJECTION,HIGH,BLOCK
+10.10.1.21,GET,/products?id=1%27%20OR%201%3D1--,SQL_INJECTION,HIGH,BLOCK
+10.10.1.22,GET,"/items?id=5 UNION SELECT username,password FROM users",SQL_INJECTION,HIGH,BLOCK
+10.10.1.23,POST,/admin/delete?query=1; DROP TABLE members--,SQL_INJECTION,HIGH,BLOCK
+10.10.1.24,GET,/auth?user=admin%2527%2520or%2520%25271%2527%253D%25271,SQL_INJECTION,HIGH,BLOCK
+10.10.1.30,GET,/comment?text=<script>alert('XSS')</script>,XSS,HIGH,BLOCK
+10.10.1.31,GET,/profile?avatar=<img src=x onerror=alert(1)>,XSS,HIGH,BLOCK
+10.10.1.32,GET,/redirect?url=javascript:alert(document.cookie),XSS,HIGH,BLOCK
+10.10.1.35,GET,/download?file=../../../../etc/passwd,PATH_TRAVERSAL,MEDIUM,BLOCK
+10.10.1.36,GET,/view?doc=..\..\windows\win.ini,PATH_TRAVERSAL,MEDIUM,BLOCK
+10.10.1.37,GET,/static?path=%2e%2e%2f%2e%2e%2fconfig.json,PATH_TRAVERSAL,MEDIUM,BLOCK
+10.10.1.99,GET,/search?q=SQL UNION SELECT tutorial,SQL_INJECTION,HIGH,BLOCK
