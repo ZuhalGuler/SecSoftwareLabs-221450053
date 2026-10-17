@@ -73,5 +73,10 @@
     "src_ip": "10.10.1.37",
     "method": "GET",
     "url": "/static?path=%2e%2e%2f%2e%2e%2fconfig.json"
+  },
+  {
+    "src_ip": "10.10.1.99",
+    "method": "GET",
+    "url": "/search?q=SQL UNION SELECT tutorial"
   }
 ]
