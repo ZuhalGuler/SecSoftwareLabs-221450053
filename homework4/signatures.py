@@ -26,3 +26,10 @@ TRAVERSAL_PATTERNS = [
     "%2e%2e",        # Eklenen özel imza 2: Encode edilmiş üst dizin geçişi
     "..%2f",         # Eklenen özel imza 3: Kısmi encode edilmiş dizin geçişi
 ]
+
+# Saldırı türlerine göre önem derecesi (Severity) sözlüğü
+SEVERITY_MAP = {
+    "SQL_INJECTION": "HIGH",
+    "XSS": "HIGH",
+    "PATH_TRAVERSAL": "MEDIUM",
+}
