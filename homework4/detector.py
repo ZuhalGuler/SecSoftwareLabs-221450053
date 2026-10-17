@@ -1,4 +1,3 @@
-# detector.py - Attack Detection Engine
 
 from normalizer import normalize
 from signatures import SQLI_PATTERNS, XSS_PATTERNS, TRAVERSAL_PATTERNS, SEVERITY_MAP
