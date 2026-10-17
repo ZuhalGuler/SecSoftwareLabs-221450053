@@ -1,5 +1,6 @@
 # main.py - Mini WAF and Web Attack Detector Entry Point
 
+import csv
 import json
 import os
 import sys
@@ -10,6 +11,19 @@ def load_requests(file_path):
     """JSON dosyasından HTTP istek listesini okur."""
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def save_alerts_to_csv(alerts, output_path):
+    """
+    Sadece saldırı tespit edilen (BLOCK) istekleri alerts.csv dosyasına yazar.
+    csv modülü sayesinde virgül veya tırnak içeren URL'ler güvenli biçimde kaçışlanır.
+    """
+    fieldnames = ["src_ip", "method", "url", "attack", "severity", "action"]
+    with open(output_path, "w", newline="", encoding="utf-8") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for alert in alerts:
+            writer.writerow(alert)
 
 
 def print_request_result(src_ip, url, attack_label, severity, action):
@@ -36,6 +50,7 @@ def print_statistics(stats):
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     input_file = sys.argv[1] if len(sys.argv) > 1 else os.path.join(base_dir, "test_requests.json")
+    alerts_file = os.path.join(base_dir, "alerts.csv")
 
     requests_data = load_requests(input_file)
 
@@ -47,9 +62,11 @@ def main():
         "xss": 0,
         "traversal": 0,
     }
+    alerts = []
 
     for item in requests_data:
         src_ip = item.get("src_ip", "UNKNOWN")
+        method = item.get("method", "GET")
         url = item.get("url", "")
 
         attack_type = detect_attack(url)
@@ -67,8 +84,18 @@ def main():
             elif attack_type == "PATH_TRAVERSAL":
                 stats["traversal"] += 1
 
+            alerts.append({
+                "src_ip": src_ip,
+                "method": method,
+                "url": url,
+                "attack": attack_label,
+                "severity": severity,
+                "action": action,
+            })
+
         print_request_result(src_ip, url, attack_label, severity, action)
 
+    save_alerts_to_csv(alerts, alerts_file)
     print_statistics(stats)
 
 
